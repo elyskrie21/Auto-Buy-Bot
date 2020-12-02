@@ -1,12 +1,12 @@
 keys = {
   'product_url':'',
-  'email': '',
-  'password': '',
-  'card': '',
-  'first': '',
-  'last': '',
-  'address':'',
-  'city': '',
-  'zip': '',
-  'code': ''
+  'email': 'esamkriegel@gmail.com',
+  'password': '@ill77moN',
+  'card': '5131158652707719',
+  'first': 'Elyse',
+  'last': 'Kriegel',
+  'address':'960 202nd Ave',
+  'city': 'Pella',
+  'zip': '50219',
+  'code': '127'
 }

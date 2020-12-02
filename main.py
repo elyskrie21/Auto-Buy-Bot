@@ -11,9 +11,9 @@ chrome_options = Options()
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(r".\chromedriver", options=chrome_options)
+driver = webdriver.Chrome(r'./chromedriver', options=chrome_options)
 
-def order(k):
+def BestBuyOrder(k):
   driver.get(k['product_url'])
   
   while True:
@@ -82,6 +82,20 @@ def order(k):
 
   driver.find_element_by_xpath('//*[@id="checkoutApp"]/div[2]/div[1]/div[1]/main/div[2]/div[3]/div/section/div[4]/button').click()
 
+def NeweggOrder(k):
+  driver.get(k['product_url'])
 
 
-order(keys)
+def main():
+  print('Welcome to the Auto Buy Bot!\nTo get started, enter the product url')
+  url = input('Product url: ')
+  keys['product_url'] = url
+  
+  store = input('Enter N to shop on Newegg. Enter B to shop on Bestbuy: ')
+
+  if store == 'B':
+    NeweggOrder(keys)
+  if store == 'N':
+    BestBuyOrder(keys)
+
+main()
