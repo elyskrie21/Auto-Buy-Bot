@@ -1,7 +1,7 @@
 keys = {
   'product_url':'',
-  'email': 'esamkriegel@gmail.com',
-  'password': '@ill77moN',
+  'email': '',
+  'password': '',
   'card': '5131158652707719',
   'first': 'Elyse',
   'last': 'Kriegel',

@@ -11,9 +11,8 @@ chrome_options = Options()
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(r'./chromedriver', options=chrome_options)
-
 def BestBuyOrder(k):
+  driver = webdriver.Chrome(r".\chromedriver", options=chrome_options)
   driver.get(k['product_url'])
   
   while True:
@@ -83,19 +82,60 @@ def BestBuyOrder(k):
   driver.find_element_by_xpath('//*[@id="checkoutApp"]/div[2]/div[1]/div[1]/main/div[2]/div[3]/div/section/div[4]/button').click()
 
 def NeweggOrder(k):
+  driver = webdriver.Chrome(r'./chromedriver', options=chrome_options)
+  driver.get('https://www.newegg.com/')
+  time.sleep(2)
   driver.get(k['product_url'])
+
+  while True:
+    try:
+      time.sleep(.5)
+      WebDriverWait(driver, 1).until(lambda d: d.find_element_by_css_selector('button.btn-wide')).click()
+      break
+    except:
+      print('no element')
+      driver.refresh()
+
+  b = WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.modal-footer > button:nth-child(2)')))
+  b.click()
+
+  b = WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.btn-undefined')))
+  b.click()
+
+  b = WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.btn-primary')))
+  b.click()
+
+  i = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#labeled-input-signEmail")))
+  i.send_keys(k['email'])
+
+  b = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#signInSubmit')))
+  b.click()
+
+  i = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "#labeled-input-password")))
+  i.send_keys(k['password'])
+
+  b = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#signInSubmit')))
+  b.click()
+
+  i = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.retype-security-code:nth-child(3) > input:nth-child(1)")))
+  i.send_keys(k['code'])
+
+  b = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#btnCreditCard')))
+  b.click()
 
 
 def main():
   print('Welcome to the Auto Buy Bot!\nTo get started, enter the product url')
   url = input('Product url: ')
   keys['product_url'] = url
+  keys['email'] = input('What is your email: ')
+  keys['password'] = input('What is your password: ') 
   
   store = input('Enter N to shop on Newegg. Enter B to shop on Bestbuy: ')
 
-  if store == 'B':
-    NeweggOrder(keys)
   if store == 'N':
+    NeweggOrder(keys)
+  if store == 'B':
     BestBuyOrder(keys)
 
 main()
