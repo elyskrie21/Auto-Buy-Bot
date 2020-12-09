@@ -28,10 +28,10 @@ def checkout(k, driver):
     WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#signInSubmit'))).click()
 
     i = WebDriverWait(driver, 1).until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.retype-security-code:nth-child(3) > input:nth-child(1)")))
-    i.send_keys('3')
+    i.send_keys(keys['code'])
     i.send_keys(Keys.CONTROL, 'a')
     i.send_keys(Keys.BACKSPACE)
-    i.send_keys('337')
+    i.send_keys(keys['code'])
    
     WebDriverWait(driver, 1).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '#btnCreditCard'))).click()
 
